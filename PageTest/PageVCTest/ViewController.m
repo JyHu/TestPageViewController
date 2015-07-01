@@ -29,8 +29,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    
     self.viewControllersArray = [[NSMutableArray alloc] init];
     
     [self createContentPages];
@@ -53,8 +51,6 @@
 
 - (void)createContentPages
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    
     NSMutableArray *pageStrings = [[NSMutableArray alloc] init];
     for (NSInteger i = 0 ; i < 11 ; i++)
     {
@@ -67,9 +63,6 @@
 
 - (MoreViewController *)viewControllerAtIndex:(NSInteger)index
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    NSLog(@"%@", @(index));
-    
     if (([self.pageContent count] == 0) || (index >= [self.pageContent count]))
     {
         return nil;
@@ -82,15 +75,13 @@
             {
                 continue;
             }
-            if ([self.pageContent containsObject:vc.dataObj])
+            if ([[self.pageContent objectAtIndex:index] isEqualToString:vc.dataObj])
             {
-                NSLog(@"reuse");
                 return vc;
             }
         }
     }
     
-    NSLog(@"new");
     MoreViewController *dataViewController = [[MoreViewController alloc] init];
     dataViewController.dataObj = [self.pageContent objectAtIndex:index];
     
@@ -101,16 +92,11 @@
 
 - (NSUInteger)indexOfViewController:(MoreViewController *)viewController
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    
     return [self.pageContent indexOfObject:viewController.dataObj];
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    NSLog(@"%@\n\n", ((MoreViewController *)viewController).dataObj);
-    
     NSUInteger index = [self indexOfViewController:(MoreViewController *)viewController];
     if ((index == 0) || (index == NSNotFound))
     {
@@ -124,9 +110,6 @@
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
-    NSLog(@"%@\n\n", ((MoreViewController *)viewController).dataObj);
-    
     NSUInteger index = [self indexOfViewController:(MoreViewController *)viewController];
     if (index == NSNotFound)
     {

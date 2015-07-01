@@ -20,13 +20,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    self.view.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
 }
 
 - (void)loadView
 {
     [super loadView];
-    
-    NSLog(@"-- %@", NSStringFromSelector(_cmd));
     
     CGSize size = [UIScreen mainScreen].bounds.size;
     
@@ -35,12 +35,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    NSLog(@"-- %@", NSStringFromSelector(_cmd));
-    
     [super viewWillAppear:animated];
     [self.myWebview loadHTMLString:_dataObj baseURL:nil];
     [self.view addSubview:self.myWebview];
-    self.view.backgroundColor = [UIColor colorWithRed:arc4random()%255/255.0 green:arc4random()%255/255.0 blue:arc4random()%255/255.0 alpha:1];
 }
 
 - (void)didReceiveMemoryWarning {
